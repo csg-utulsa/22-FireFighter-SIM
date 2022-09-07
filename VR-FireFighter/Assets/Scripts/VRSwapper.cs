@@ -9,11 +9,11 @@ public class VRSwapper : MonoBehaviour
 
     void Awake() {
         #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-                keyboardCamera.SetActive(true);
-                vrCamera.SetActive(false);
+                //keyboardCamera.SetActive(true);
+                //vrCamera.SetActive(false);
         #elif ENABLE_VR
-                vrCamera.SetActive(true);
-                keyboardCamera.SetActive(false);
+                //vrCamera.SetActive(true);
+                //keyboardCamera.SetActive(false);
         #endif
     }
 }
