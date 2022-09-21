@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 487
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 82
+  controlID: 81
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 83
+  controlID: 82
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,8 +245,8 @@ MonoBehaviour:
     y: 0
     width: 1229
     height: 563
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -289,33 +289,6 @@ MonoBehaviour:
   converterItem: {fileID: 9197481963319205126, guid: c04b8c76151329e42929df320c5901fe,
     type: 3}
   m_ConverterStates:
-  - isEnabled: 1
-    isActive: 0
-    isLoading: 0
-    isInitialized: 0
-    items: []
-    pending: 0
-    warnings: 0
-    errors: 0
-    success: 0
-  - isEnabled: 1
-    isActive: 0
-    isLoading: 0
-    isInitialized: 0
-    items: []
-    pending: 0
-    warnings: 0
-    errors: 0
-    success: 0
-  - isEnabled: 1
-    isActive: 0
-    isLoading: 0
-    isInitialized: 0
-    items: []
-    pending: 0
-    warnings: 0
-    errors: 0
-    success: 0
   - isEnabled: 1
     isActive: 0
     isLoading: 0
@@ -395,22 +368,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/SciFi Warehouse Kit/Art/Textures
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/SciFi Warehouse Kit/Art/Textures
+  - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\Students\Josh Sutton\22-FireFighter-SIM\VR-FireFighter
+  m_LastProjectPath: C:\Users\beo8538\Documents\GitHub\22-FireFighter-SIM\VR-FireFighter
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 349}
-    m_SelectedIDs: 0ea20000
-    m_LastClickedID: 41486
-    m_ExpandedIDs: 000000000476000006760000087600000a7600001a7600001e7600002a7600002e7600002a780000a6a10000a8a100006ca2000084a20000663a0100843a0100863a010000ca9a3b
+    scrollPos: {x: 0, y: 57}
+    m_SelectedIDs: 1aa60000
+    m_LastClickedID: 42522
+    m_ExpandedIDs: 000000001aa600001ca600001ea6000020a6000022a6000024a6000026a6000028a6000038a6000084a6000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -438,7 +411,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ae1f0100
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000f27400000476000006760000087600000a760000187600001e76000020760000907d0000927d0000a4a10000a6a10000a8a100002a340100
+    m_ExpandedIDs: 000000001aa600001ca600001ea6000020a6000022a6000024a6000026a6000028a60000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -490,7 +463,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 356}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 165
@@ -567,10 +540,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 2599}
-      m_SelectedIDs: 343effff
-      m_LastClickedID: -49612
-      m_ExpandedIDs: 003fffffca45ffffb24affff444fffff2cb3ffffe6c2ffffccc4ffff54d9ffff00dcffff74e4ffffaae6ffff90f6ffff30fbfffff67e000050810000d69d0000a89e000064a000009aa00000d4a00000d60c0100060d0100ae1f01007635010080350100923501000a3601002a36010054360100ae360100b8360100c4360100123701008037010032380100623801006638010080380100b6380100ca3801002639010038390100483901009c390100
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 207cffff
+      m_LastClickedID: 0
+      m_ExpandedIDs: 2a8bfffff8b3ffff8ad2ffff82d4ffffb2a60000c4a6000040a70000f4a7000056a8000094a90000c8a90000e4a900002aaa00002eaa00008aaa0000a4aa000012ab0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -825,7 +798,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 1
+      displayed: 0
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -853,9 +826,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 26.126047, y: -12.656149, z: -8.029716}
+    m_Target: {x: 1.787653, y: 12.770001, z: 4.7948656}
     speed: 2
-    m_Value: {x: 26.126047, y: -12.656149, z: -8.029716}
+    m_Value: {x: 1.787653, y: 12.770001, z: 4.7948656}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -902,17 +875,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.24218428, y: 0.65756595, z: -0.23649156, w: 0.67312044}
+    m_Target: {x: 0.039266277, y: 0.66252154, z: -0.034812324, w: 0.74720556}
     speed: 2
-    m_Value: {x: 0.24217634, y: 0.6575444, z: -0.23648381, w: 0.6730984}
+    m_Value: {x: 0.039266184, y: 0.66251993, z: -0.03481224, w: 0.74720377}
   m_Size:
-    m_Target: 16.094067
+    m_Target: 14.316285
     speed: 2
-    m_Value: 16.094067
+    m_Value: 14.990874
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 0.76062
     m_SpeedNormalized: 0.38
