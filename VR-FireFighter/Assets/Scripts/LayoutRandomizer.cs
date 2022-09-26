@@ -35,7 +35,7 @@ public class LayoutRandomizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F5)) ResetMaze();
     }
 
     void Generate() {
@@ -59,6 +59,8 @@ public class LayoutRandomizer : MonoBehaviour
         Vector2 cells_ad = new Vector2(cells.x - 1, cells.y - 1);
         Vector2 startPos = new Vector2( Mathf.Round(Random.Range(0f, 1f)) * cells_ad.x, Mathf.Round(Random.Range(0f, 1f)) * cells_ad.y );
         Vector2 endPos = new Vector2(-1, -1);
+        GameObject entrance;
+        GameObject unentrance = null;
         float expectedProximity = Mathf.Max(cells.x - 1f, cells.y - 1f);
         int attempts = 0;
         while ( (startPos == endPos || endPos == (Vector2.one * -1.0f) ) && attempts < 25) {
@@ -83,7 +85,7 @@ public class LayoutRandomizer : MonoBehaviour
                 // get entrance
                 GameObject oldEnt   = rooms[(int)startPos.x, (int)startPos.y];
                 Vector3 oldPos      = oldEnt.transform.position;
-                GameObject entrance = Instantiate(room_exit[0], transform);
+                entrance            = Instantiate(room_exit[0], transform);
 
                 entrance.transform.position = oldPos;
                 entrance.name = "Enter " + oldEnt.name;
@@ -96,7 +98,7 @@ public class LayoutRandomizer : MonoBehaviour
                 // calling it unentrance b/c exit is a reserved keyword
                 oldEnt                  = rooms[(int)endPos.x, (int)endPos.y];
                 oldPos                  = oldEnt.transform.position;
-                GameObject unentrance   = Instantiate(room_exit[1], transform);
+                unentrance              = Instantiate(room_exit[1], transform);
 
                 unentrance.transform.position = oldPos;
                 unentrance.name = "Exit " + oldEnt.name;
@@ -116,10 +118,27 @@ public class LayoutRandomizer : MonoBehaviour
         Vector2 offset  = Vector2.zero;
         List<GameObject> rooms_visited = new List<GameObject>();
         List<GameObject> halls = new List<GameObject> ();
-        bool exitfound  = false;
+        bool exitfound = false;
         attempts = 0;
 
-        GenerateStep(testPos, rooms_visited, halls, rooms);
+        while (!exitfound && attempts < 20) {
+            GenerateStep(testPos, rooms_visited, halls, rooms, unentrance);
+
+            if (rooms_visited.Contains(unentrance)) {
+                exitfound = true;
+            } else {
+                rooms_visited = new List<GameObject>();
+                for (var i = 0; i < halls.Count; i++) {
+                    Destroy(halls[i]);
+                }
+
+                attempts++;
+            }
+        }
+        if (!exitfound) {
+            Debug.Log("Could not find an exit");
+            ResetMaze();
+        }
         /*while (!exitfound && attempts < 10) {
             int pleasedontblowup = 0;
 
@@ -166,12 +185,14 @@ public class LayoutRandomizer : MonoBehaviour
         }*/
     }
 
-    void GenerateStep(Vector2 position, List<GameObject> visited, List<GameObject> hallways, GameObject[,] allrooms) {
+    void GenerateStep(Vector2 position, List<GameObject> visited, List<GameObject> hallways, GameObject[,] allrooms, GameObject unentrance) {
         int pleasedontblowup = 0;
         Vector2 offset = Vector2.zero;
-        Vector2 startPos = transform.position - new Vector3(layoutBounds.x / 2, 0, layoutBounds.z / 2);//= new Vector2(Mathf.Round(Random.Range(0f, 1f)) * (cells.x-1), Mathf.Round(Random.Range(0f, 1f)) * (cells.y-1));
+        Vector3 startpos = transform.position - new Vector3(layoutBounds.x / 2, 0, layoutBounds.z / 2);//= new Vector2(Mathf.Round(Random.Range(0f, 1f)) * (cells.x-1), Mathf.Round(Random.Range(0f, 1f)) * (cells.y-1));
 
         visited.Add(allrooms[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)]);
+
+        if (visited.Contains(unentrance)) return;
 
         while (pleasedontblowup < 10) {
             offset.x = Mathf.Round(Random.Range(-1, 1));
@@ -187,14 +208,14 @@ public class LayoutRandomizer : MonoBehaviour
                 float r = position.x;
                 float c = position.y;
 
-                hallway.transform.position = new Vector3( startPos.x, 0, startPos.y ) + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
+                hallway.transform.position = startpos + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
                 hallway.name = "Hallway (" + position.x + ", " + position.y + ")";
 
                 hallways.Add(hallway);
 
                 position += offset / 2;
 
-                GenerateStep(position, visited, hallways, allrooms);
+                GenerateStep(position, visited, hallways, allrooms, unentrance);
                 return;
             } else {
                 pleasedontblowup++;
@@ -202,6 +223,13 @@ public class LayoutRandomizer : MonoBehaviour
                 position -= offset;
             }
         }
+    }
+
+    void ResetMaze() {
+        for (var i = 0; i < transform.childCount; i++) {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        Generate();
     }
 
     void OnDrawGizmosSelected() {
