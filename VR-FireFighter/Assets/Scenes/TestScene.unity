@@ -1827,11 +1827,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db02582ef9619e4488f37746b786d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room_hallways: []
+  room_hallways:
+  - {fileID: 5710113175054826140, guid: 479e965d2890a83498c5bdcda6324178, type: 3}
   room_main:
   - {fileID: 736395393682501207, guid: 5f319c5c648fdec4ba92d8b91a27a4f8, type: 3}
   - {fileID: 7454074946514206965, guid: 1532148525225764b9abefeef0890de9, type: 3}
   room_side: []
+  room_exit:
+  - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
+  - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
   layoutBounds: {x: 2, y: 0.5, z: 2}
   cells: {x: 4, y: 4}
 --- !u!4 &1611162685
