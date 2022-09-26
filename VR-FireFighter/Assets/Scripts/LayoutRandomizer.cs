@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 //using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 
@@ -111,8 +113,6 @@ public class LayoutRandomizer : MonoBehaviour
             attempts++;
         }
 
-        //rooms_sealed = rooms;
-
         // now go thru and try to add doors
         Vector2 testPos = new Vector2(startPos.x, startPos.y);
         Vector2 offset  = Vector2.zero;
@@ -121,6 +121,7 @@ public class LayoutRandomizer : MonoBehaviour
         bool exitfound = false;
         attempts = 0;
 
+        // loop thru, if find an exit, we're done, otherwise keep trying
         while (!exitfound && attempts < 20) {
             GenerateStep(testPos, rooms_visited, halls, rooms, unentrance);
 
@@ -131,58 +132,80 @@ public class LayoutRandomizer : MonoBehaviour
                 for (var i = 0; i < halls.Count; i++) {
                     Destroy(halls[i]);
                 }
+                halls = new List<GameObject>();
 
                 attempts++;
             }
         }
+        // if we still can't find an exit, start from scratch
         if (!exitfound) {
             Debug.Log("Could not find an exit");
             ResetMaze();
         }
-        /*while (!exitfound && attempts < 10) {
-            int pleasedontblowup = 0;
 
-            if (testPos == endPos) {
-                exitfound = true;
-            } else if (rooms_sealed.Count >= ((int)cells.x * (int)cells.y)) {
-                rooms_sealed = new List<GameObject>();
-                testPos = new Vector2(startPos.x, startPos.y);
+        // okay, we have our grid, an entrance/exit, and a correct path to the goal. time to start some trickery
+        int maxFakeDoors        = Mathf.RoundToInt(cells.x * cells.y) - halls.Count;
+        int fakeDoors           = 0;
+        List<GameObject> fakes  = new List<GameObject>();
+        Debug.Log("Adding " + maxFakeDoors + " fake doors! Current hall count: "+halls.Count);
 
-                for (var i = halls.Length - 1; i >= 0; i--) {
-                    Destroy(halls[i]);
-                }
-                halls = new GameObject[(int)cells.x * (int)cells.y];
+        Vector2 fakeBounds_x    = new Vector2(0, cells_ad.x);
+        Vector2 fakeBounds_y    = new Vector2(0, cells_ad.y);
+        Vector3 realPos         = Vector3.zero;
+        testPos                 = Vector2.zero;
 
-                Debug.Log("not a viable path, moving on to attempt #"+(attempts+1));
-                attempts++;
-            } else {
-                while (pleasedontblowup < 10) {
-                    offset.x = Mathf.Round(Random.Range(-1, 1));
-                    if ((offset.x == -1 && testPos.x == 0) || (offset.x == 1 && testPos.x == cells.x - 1)) offset.x = -offset.x;
-                    if (offset.x == 0) offset.y = Mathf.Round(Random.Range(-1, 1));
-                    if ((offset.y == -1 && testPos.y == 0) || (offset.y == 1 && testPos.y == cells.y - 1)) offset.y = 0;//-offset.y;
-                    Debug.Log("offset: " + offset);
+        int attempts2 = 0;
+        while (fakeDoors < maxFakeDoors && attempts2 < 10) {
+            attempts = 0;
+            while (attempts < 10) {
+                bool succeeded = true;
+                testPos = new Vector2(Mathf.Round(Random.Range(fakeBounds_x[0], fakeBounds_x[1] * 2)), Mathf.Round(Random.Range(fakeBounds_y[0], fakeBounds_y[1] * 2)));
+                testPos = testPos / 2;
 
-                    if (offset == Vector2.zero && !rooms_sealed.Contains(rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y)])) {
-                        GameObject hallway = Instantiate(room_hallways[0], transform);
-                        hallway.transform.position = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y)].transform.localPosition + new Vector3(offset.x, 0f, offset.y);
-                        hallway.name = "Hallway (" + (testPos.x + (offset.x / 2)) + ", " + (testPos.y + (offset.y / 2)) + ")";
+                /*offset.x = Mathf.Round(Random.Range(-1, 1));
+                if ((offset.x == -1 && testPos.x == 0) || (offset.x == 1 && testPos.x == cells.x - 1)) offset.x = -offset.x;
+                if (offset.x == 0) offset.y = Mathf.Round(Random.Range(-1, 1));
+                if ((offset.y == -1 && testPos.y == 0) || (offset.y == 1 && testPos.y == cells.y - 1)) offset.y = 0;*/
 
-                        Debug.Log("testPos: " + testPos);
-                        rooms_sealed.Add(rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y)]);
+                //testPos += offset / 2;
 
-                        testPos += offset;
-                        Debug.Log("made a hallway at " + testPos);
-                    } else {
-                        pleasedontblowup++;
+                realPos = startpos + new Vector3(testPos.x * (layoutBounds.x / cells.x), 0, testPos.y * (layoutBounds.z / cells.y));
+
+                // look if the space is free
+                foreach (GameObject go in halls) {
+                    if (go.transform.position == realPos) {
+                        succeeded = false;
                     }
-                } 
-                if (pleasedontblowup >= 10) {
-                    Debug.Log("it blew up");
+                }
+
+                // sanity check: hallways should not be placed in the center of a room, or on the diagonal
+                // this statement makes the placement fail if both position values are decimal (ie. on the diagonal axis) or if both are whole nums (ie. on the whole room axis)
+                if (MathExt.IsWholeNum(testPos.x) == MathExt.IsWholeNum(testPos.y)) {
+                    succeeded = false;
+                }
+
+                // only create the hallway if succeeded
+                if (succeeded) {
+                    GameObject hw = Instantiate(room_hallways[1], transform);
+
+                    hw.transform.position = realPos;
+                    hw.name = "Hallway (Fake) (" + testPos.x + ", " + testPos.y + ")";
+
+                    halls.Add(hw);
+
+                    fakeDoors++;
+                } else {
                     attempts++;
                 }
             }
-        }*/
+            /*for (var i = 0; i < fakes.Count; i++) {
+                halls.Remove(fakes[i]);
+                Destroy(fakes[i]);
+            }*/
+            attempts2++;
+        }
+
+        Debug.Log("Finished creating " + fakeDoors + " fake doors!");
     }
 
     void GenerateStep(Vector2 position, List<GameObject> visited, List<GameObject> hallways, GameObject[,] allrooms, GameObject unentrance) {
