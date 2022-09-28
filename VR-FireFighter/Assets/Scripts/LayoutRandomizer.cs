@@ -31,6 +31,7 @@ public class LayoutRandomizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        layoutBounds = new Vector3( layoutBounds.x * transform.localScale.x, layoutBounds.y * transform.localScale.y, layoutBounds.z * transform.localScale.z);
         Generate();
     }
 
@@ -257,6 +258,9 @@ public class LayoutRandomizer : MonoBehaviour
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, (layoutBounds) );
+
+        Vector3 bounds = new Vector3(layoutBounds.x * transform.localScale.x, layoutBounds.y * transform.localScale.y, layoutBounds.z * transform.localScale.z);
+
+        Gizmos.DrawWireCube(transform.position, (bounds) );
     }
 }
