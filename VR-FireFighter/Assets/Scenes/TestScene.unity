@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d43b9062c707824ead7696ae2dd03f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseXRInput: 0
+  UseXRInput: 1
   MoveSpeed: 30
   RotationSpeed: 1
   SpeedChangeRate: 10
