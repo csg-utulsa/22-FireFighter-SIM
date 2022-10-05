@@ -39,6 +39,10 @@ public class LayoutRandomizer : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5)) ResetMaze();
+        if (Input.GetKeyDown(KeyCode.F6)) {
+            GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("RoomEntrance").transform.position;
+            Debug.Log("Moved player to start");
+        }
     }
 
     void Generate() {
@@ -53,6 +57,7 @@ public class LayoutRandomizer : MonoBehaviour
                 GameObject go = Instantiate( room_main[Mathf.RoundToInt(Random.Range(0,2))], transform );
                 go.name = "Room (" + r + ", " + c + ")";
                 go.transform.position = startpos + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
+                go.GetComponent<RoomData>().Setup();
 
                 rooms[r,c] = go;
             }
@@ -189,10 +194,38 @@ public class LayoutRandomizer : MonoBehaviour
                 if (succeeded) {
                     GameObject hw = Instantiate(room_hallways[1], transform);
 
+                    testPos = new Vector2(testPos.y, testPos.x);
+
                     hw.transform.position = realPos;
                     hw.name = "Hallway (Fake) (" + testPos.x + ", " + testPos.y + ")";
 
                     halls.Add(hw);
+
+                    // open exits on room prefab
+                    GameObject rm1;
+                    GameObject rm2;
+                    if (MathExt.IsWholeNum(testPos.x)) {
+                        Debug.Log("testpos: " + testPos);
+                        rm1 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y - 0.5f)];
+                        rm2 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y + 0.5f)];
+                        Debug.Log("west rm1: " + rm1.name);
+                        Debug.Log("east rm2: " + rm2.name);
+                        Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                        Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                        rm1.GetComponent<RoomData>().exits.has_exit_west = true;
+                        rm2.GetComponent<RoomData>().exits.has_exit_east = true;
+                    }
+                    if (MathExt.IsWholeNum(testPos.y)) {
+                        Debug.Log("testpos: " + testPos);
+                        rm1 = rooms[Mathf.RoundToInt(testPos.x - 0.5f), Mathf.RoundToInt(testPos.y)];
+                        rm2 = rooms[Mathf.RoundToInt(testPos.x + 0.5f), Mathf.RoundToInt(testPos.y)];
+                        Debug.Log("south rm1: " + rm1.name);
+                        Debug.Log("north rm2: " + rm2.name);
+                        Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                        Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                        rm1.GetComponent<RoomData>().exits.has_exit_north = true;
+                        rm2.GetComponent<RoomData>().exits.has_exit_south = true;
+                    }
 
                     fakeDoors++;
                 } else {
@@ -204,6 +237,10 @@ public class LayoutRandomizer : MonoBehaviour
                 Destroy(fakes[i]);
             }*/
             attempts2++;
+        }
+
+        foreach (GameObject go in rooms) {
+            go.GetComponent<RoomData>().OpenExits();
         }
 
         Debug.Log("Finished creating " + fakeDoors + " fake doors!");

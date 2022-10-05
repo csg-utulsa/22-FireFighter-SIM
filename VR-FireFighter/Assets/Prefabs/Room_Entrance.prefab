@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_Entrance
       objectReference: {fileID: 0}
+    - target: {fileID: 736395393682501207, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoomEntrance
+      objectReference: {fileID: 0}
     - target: {fileID: 1148506508025810954, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
