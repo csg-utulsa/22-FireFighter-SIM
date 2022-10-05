@@ -3684,7 +3684,7 @@ MonoBehaviour:
   m_DefaultControlScheme: KeyboardInput
   m_DefaultActionMap: Basic
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 724028031}
 --- !u!1 &1728673258
 GameObject:
   m_ObjectHideFlags: 0

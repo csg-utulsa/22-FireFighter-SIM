@@ -90,7 +90,7 @@ public class WalkTest : MonoBehaviour
             mouseLookAt.y -= 1 * _input.look.y * Time.deltaTime;
 
             Camera.main.transform.eulerAngles = new Vector3(mouseLookAt.x, mouseLookAt.y, 0);
-            Debug.Log("Camera rot: " + Camera.main.transform.eulerAngles);
+            Debug.Log("Camera rot: " + _input.look);
 
             // clamp our pitch rotation
             //_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
