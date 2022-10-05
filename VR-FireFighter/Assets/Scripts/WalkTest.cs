@@ -65,7 +65,9 @@ public class WalkTest : MonoBehaviour
     }
 
     private void LateUpdate() {
-        CameraRotation();
+        if (!UseXRInput) {
+            CameraRotation();
+        }
     }
 
     void KeyboardInput() {
@@ -82,6 +84,13 @@ public class WalkTest : MonoBehaviour
 
             //_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
             _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+
+            Vector2 mouseLookAt = Vector2.zero;
+            mouseLookAt.x += 1 * _input.look.x * Time.deltaTime;
+            mouseLookAt.y -= 1 * _input.look.y * Time.deltaTime;
+
+            Camera.main.transform.eulerAngles = new Vector3(mouseLookAt.x, mouseLookAt.y, 0);
+            Debug.Log("Camera rot: " + Camera.main.transform.eulerAngles);
 
             // clamp our pitch rotation
             //_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
