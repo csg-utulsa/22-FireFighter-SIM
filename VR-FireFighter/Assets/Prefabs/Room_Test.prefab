@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorBlocks: {fileID: 5415464517184308400}
+  gridPosition: {x: 0, y: 0}
 --- !u!1 &1731214026399343875
 GameObject:
   m_ObjectHideFlags: 0

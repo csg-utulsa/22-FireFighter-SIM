@@ -39,6 +39,7 @@ public class RoomData : MonoBehaviour
 
     public Exits exits;
     public Transform doorBlocks;
+    public Vector2 gridPosition;
 
     // Update is called once per frame
     void Update()
