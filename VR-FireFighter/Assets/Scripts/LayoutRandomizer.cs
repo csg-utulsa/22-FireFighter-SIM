@@ -1,6 +1,8 @@
+using Palmmedia.ReportGenerator.Core.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 //using System.Diagnostics;
 using UnityEngine;
@@ -39,6 +41,10 @@ public class LayoutRandomizer : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5)) ResetMaze();
+        if (Input.GetKeyDown(KeyCode.F6)) {
+            GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("RoomEntrance").transform.position;
+            Debug.Log("Moved player to start");
+        }
     }
 
     void Generate() {
@@ -53,6 +59,8 @@ public class LayoutRandomizer : MonoBehaviour
                 GameObject go = Instantiate( room_main[Mathf.RoundToInt(Random.Range(0,2))], transform );
                 go.name = "Room (" + r + ", " + c + ")";
                 go.transform.position = startpos + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
+                go.GetComponent<RoomData>().Setup();
+                go.GetComponent<RoomData>().gridPosition = new Vector2(r, c);
 
                 rooms[r,c] = go;
             }
@@ -94,6 +102,9 @@ public class LayoutRandomizer : MonoBehaviour
                 entrance.name = "Enter " + oldEnt.name;
                 entrance.transform.SetSiblingIndex(oldEnt.transform.GetSiblingIndex());
 
+                entrance.GetComponent<RoomData>().Setup();
+                entrance.GetComponent<RoomData>().gridPosition = new Vector2((int)startPos.x, (int)startPos.y);
+
                 rooms[(int)startPos.x, (int)startPos.y] = entrance;
                 Destroy(oldEnt);
 
@@ -106,6 +117,9 @@ public class LayoutRandomizer : MonoBehaviour
                 unentrance.transform.position = oldPos;
                 unentrance.name = "Exit " + oldEnt.name;
                 unentrance.transform.SetSiblingIndex(oldEnt.transform.GetSiblingIndex());
+
+                unentrance.GetComponent<RoomData>().Setup();
+                entrance.GetComponent<RoomData>().gridPosition = new Vector2((int)endPos.x, (int)endPos.y);
 
                 rooms[(int)endPos.x, (int)endPos.y] = unentrance;
                 Destroy(oldEnt);
@@ -189,10 +203,55 @@ public class LayoutRandomizer : MonoBehaviour
                 if (succeeded) {
                     GameObject hw = Instantiate(room_hallways[1], transform);
 
+                    testPos = new Vector2(testPos.y, testPos.x);
+
                     hw.transform.position = realPos;
-                    hw.name = "Hallway (Fake) (" + testPos.x + ", " + testPos.y + ")";
+                    hw.name = "Hallway (" + testPos.x + ", " + testPos.y + ") (Fake)";
+                    //.GetComponent<RoomData>().Setup();
+                    hw.GetComponent<RoomData>().gridPosition = testPos;
 
                     halls.Add(hw);
+
+                    // open exits on room prefab
+                    if (true == false) {
+                        GameObject rm1;
+                        GameObject rm2;
+                        if (MathExt.IsWholeNum(testPos.x)) {
+                            Debug.Log("testpos: " + testPos);
+                            rm1 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y - 0.5f)];
+                            rm2 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y + 0.5f)];
+                            Debug.Log("west rm1: " + rm1.name);
+                            Debug.Log("east rm2: " + rm2.name);
+                            Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                            Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                            /*rm1.GetComponent<RoomData>().exits.has_exit_east = true;
+                            rm2.GetComponent<RoomData>().exits.has_exit_west = true;*/
+                            rm1.GetComponent<RoomData>().exits.exit_east.SetActive(false);
+                            rm2.GetComponent<RoomData>().exits.exit_west.SetActive(false);
+
+                            /*hw.GetComponent<RoomData>().exits.has_exit_north = true;
+                            hw.GetComponent<RoomData>().exits.has_exit_south = true;*/
+                            hw.GetComponent<RoomData>().exits.exit_east.SetActive(false);
+                            hw.GetComponent<RoomData>().exits.exit_west.SetActive(false);
+                        }
+                        if (MathExt.IsWholeNum(testPos.y)) {
+                            Debug.Log("testpos: " + testPos);
+                            rm1 = rooms[Mathf.RoundToInt(testPos.x - 0.5f), Mathf.RoundToInt(testPos.y)];
+                            rm2 = rooms[Mathf.RoundToInt(testPos.x + 0.5f), Mathf.RoundToInt(testPos.y)];
+                            Debug.Log("south rm1: " + rm1.name);
+                            Debug.Log("north rm2: " + rm2.name);
+                            Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                            Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                            /*rm1.GetComponent<RoomData>().exits.has_exit_north = true;
+                            rm2.GetComponent<RoomData>().exits.has_exit_south = true;*/
+                            rm1.GetComponent<RoomData>().exits.exit_north.SetActive(false);
+                            rm2.GetComponent<RoomData>().exits.exit_south.SetActive(false);
+
+                            hw.GetComponent<RoomData>().exits.exit_north.SetActive(false);
+                            hw.GetComponent<RoomData>().exits.exit_south.SetActive(false);
+                            //hw.GetComponent<RoomData>().exits.has_exit_west = true;
+                        }
+                    }
 
                     fakeDoors++;
                 } else {
@@ -204,6 +263,62 @@ public class LayoutRandomizer : MonoBehaviour
                 Destroy(fakes[i]);
             }*/
             attempts2++;
+        }
+
+        foreach (GameObject go in rooms) {
+            go.GetComponent<RoomData>().OpenExits();
+        }
+        foreach (GameObject hw in halls) {
+            /*String posstr = hw.name.Substring("Hallway (".Length, "x, x".Length+1);
+            Debug.Log("posstr: " + posstr);
+            testPos = new Vector2(int.Parse(posstr.Substring(0, 1)), int.Parse(posstr.Substring(3, 1)));
+            Debug.Log("testpos: "+testPos);*/
+            testPos = hw.GetComponent<RoomData>().gridPosition;
+            hw.GetComponent<RoomData>().Setup();
+            hw.transform.position += new Vector3(0, 0.01f, 0);
+
+            // open exits on room prefab
+            GameObject rm1;
+            GameObject rm2;
+            if (MathExt.IsWholeNum(testPos.x)) {
+                Debug.Log("testpos: " + testPos);
+                rm1 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y - 0.5f)];
+                rm2 = rooms[Mathf.RoundToInt(testPos.x), Mathf.RoundToInt(testPos.y + 0.5f)];
+                Debug.Log("west rm1: " + rm1.name);
+                Debug.Log("east rm2: " + rm2.name);
+                Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                /*rm1.GetComponent<RoomData>().exits.has_exit_east = true;
+                rm2.GetComponent<RoomData>().exits.has_exit_west = true;*/
+                rm1.GetComponent<RoomData>().exits.exit_east.SetActive(false);
+                rm2.GetComponent<RoomData>().exits.exit_west.SetActive(false);
+
+                /*hw.GetComponent<RoomData>().exits.has_exit_north = true;
+                hw.GetComponent<RoomData>().exits.has_exit_south = true;*/
+                hw.GetComponent<RoomData>().exits.exit_east.SetActive(false);
+                hw.GetComponent<RoomData>().exits.exit_west.SetActive(false);
+            }
+            if (MathExt.IsWholeNum(testPos.y)) {
+                Debug.Log("testpos: " + testPos);
+                rm1 = rooms[Mathf.RoundToInt(testPos.x - 0.5f), Mathf.RoundToInt(testPos.y)];
+                rm2 = rooms[Mathf.RoundToInt(testPos.x + 0.5f), Mathf.RoundToInt(testPos.y)];
+                Debug.Log("south rm1: " + rm1.name);
+                Debug.Log("north rm2: " + rm2.name);
+                Debug.Log("exits rm1: " + rm1.GetComponent<RoomData>());
+                Debug.Log("exits rm2: " + rm2.GetComponent<RoomData>());
+                /*rm1.GetComponent<RoomData>().exits.has_exit_north = true;
+                rm2.GetComponent<RoomData>().exits.has_exit_south = true;*/
+                rm1.GetComponent<RoomData>().exits.exit_north.SetActive(false);
+                rm2.GetComponent<RoomData>().exits.exit_south.SetActive(false);
+
+                hw.GetComponent<RoomData>().exits.exit_north.SetActive(false);
+                hw.GetComponent<RoomData>().exits.exit_south.SetActive(false);
+                //hw.GetComponent<RoomData>().exits.has_exit_west = true;
+            }
+
+            //if (hw != null && hw.GetComponent<RoomData>() != null && hw.GetComponent<RoomData>().exits != null) {
+                //hw.GetComponent<RoomData>().OpenExits();
+            //}
         }
 
         Debug.Log("Finished creating " + fakeDoors + " fake doors!");
@@ -234,6 +349,7 @@ public class LayoutRandomizer : MonoBehaviour
 
                 hallway.transform.position = startpos + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
                 hallway.name = "Hallway (" + position.x + ", " + position.y + ")";
+                hallway.GetComponent<RoomData>().gridPosition = new Vector2(position.x, position.y);
 
                 hallways.Add(hallway);
 

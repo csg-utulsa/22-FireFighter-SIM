@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoomExit
+      objectReference: {fileID: 0}
     - target: {fileID: 2906024788088784348, guid: b679b4f29f906774991950117d519eb8,
         type: 3}
       propertyPath: m_Mesh
