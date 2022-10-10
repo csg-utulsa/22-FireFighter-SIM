@@ -3449,12 +3449,12 @@ MonoBehaviour:
   - {fileID: 5710113175054826140, guid: 479e965d2890a83498c5bdcda6324178, type: 3}
   - {fileID: 5711983181410379581, guid: b3e83c7166cdba444a32b393a6e0c0e9, type: 3}
   room_main:
-  - {fileID: 7454074946514206965, guid: 1532148525225764b9abefeef0890de9, type: 3}
-  - {fileID: 7454074946514206965, guid: 1532148525225764b9abefeef0890de9, type: 3}
+  - {fileID: 7247932633476931471, guid: 00d85c3d865566a459eecff66c145644, type: 3}
+  - {fileID: 7247932633476931471, guid: 00d85c3d865566a459eecff66c145644, type: 3}
   room_side: []
   room_exit:
   - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
-  - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
+  - {fileID: 6396829741879896189, guid: 7916950dfb2eac94e9d4f211c8507275, type: 3}
   layoutBounds: {x: 3, y: 0.5, z: 3}
   cells: {x: 5, y: 5}
 --- !u!4 &1611162685

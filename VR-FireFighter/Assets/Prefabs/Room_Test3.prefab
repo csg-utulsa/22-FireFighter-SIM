@@ -70,12 +70,12 @@ PrefabInstance:
     - target: {fileID: 1999695842902010790, guid: 1532148525225764b9abefeef0890de9,
         type: 3}
       propertyPath: m_SelectedEdges.Array.size
-      value: 128
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999695842902010790, guid: 1532148525225764b9abefeef0890de9,
         type: 3}
       propertyPath: m_SelectedFaces.Array.size
-      value: 32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999695842902010790, guid: 1532148525225764b9abefeef0890de9,
         type: 3}
@@ -775,7 +775,7 @@ PrefabInstance:
     - target: {fileID: 1999695842902010790, guid: 1532148525225764b9abefeef0890de9,
         type: 3}
       propertyPath: m_SelectedVertices.Array.size
-      value: 128
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999695842902010790, guid: 1532148525225764b9abefeef0890de9,
         type: 3}
