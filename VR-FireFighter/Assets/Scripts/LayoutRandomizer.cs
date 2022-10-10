@@ -35,6 +35,7 @@ public class LayoutRandomizer : MonoBehaviour
     {
         layoutBounds = new Vector3( layoutBounds.x * transform.localScale.x, layoutBounds.y * transform.localScale.y, layoutBounds.z * transform.localScale.z);
         Generate();
+        WarpPlayerToStart();
     }
 
     // Update is called once per frame
@@ -42,9 +43,16 @@ public class LayoutRandomizer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F5)) ResetMaze();
         if (Input.GetKeyDown(KeyCode.F6)) {
-            GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("RoomEntrance").transform.position;
-            Debug.Log("Moved player to start");
+            WarpPlayerToStart();
         }
+    }
+
+    void WarpPlayerToStart() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<CharacterController>().enabled = false;
+        GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("RoomEntrance").transform.position;
+        player.GetComponent<CharacterController>().enabled = true;
+        Debug.Log("Moved player to start " + GameObject.FindGameObjectWithTag("RoomEntrance"));
     }
 
     void Generate() {

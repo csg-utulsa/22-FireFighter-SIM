@@ -3454,7 +3454,7 @@ MonoBehaviour:
   room_side: []
   room_exit:
   - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
-  - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
+  - {fileID: 6396829741879896189, guid: 7916950dfb2eac94e9d4f211c8507275, type: 3}
   layoutBounds: {x: 3, y: 0.5, z: 3}
   cells: {x: 5, y: 5}
 --- !u!4 &1611162685
