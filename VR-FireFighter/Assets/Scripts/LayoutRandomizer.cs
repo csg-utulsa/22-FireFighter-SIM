@@ -35,13 +35,16 @@ public class LayoutRandomizer : MonoBehaviour
     {
         layoutBounds = new Vector3( layoutBounds.x * transform.localScale.x, layoutBounds.y * transform.localScale.y, layoutBounds.z * transform.localScale.z);
         Generate();
-        WarpPlayerToStart();
+        Invoke( "WarpPlayerToStart", 0.125f );
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5)) ResetMaze();
+        if (Input.GetKeyDown(KeyCode.F5)) {
+            ResetMaze();
+            Invoke("WarpPlayerToStart", 0.125f);
+        }
         if (Input.GetKeyDown(KeyCode.F6)) {
             WarpPlayerToStart();
         }
@@ -305,6 +308,8 @@ public class LayoutRandomizer : MonoBehaviour
                 hw.GetComponent<RoomData>().exits.has_exit_south = true;*/
                 hw.GetComponent<RoomData>().exits.exit_east.SetActive(false);
                 hw.GetComponent<RoomData>().exits.exit_west.SetActive(false);
+
+                hw.transform.Rotate(Vector3.forward, 90);
             }
             if (MathExt.IsWholeNum(testPos.y)) {
                 Debug.Log("testpos: " + testPos);
