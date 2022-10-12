@@ -11113,9 +11113,57 @@ MonoBehaviour:
   m_Mesh: {fileID: 0}
   m_VersionIndex: 13908
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 04000000
+  m_SelectedEdges:
+  - a: 100
+    b: 101
+  - a: 99
+    b: 100
+  - a: 92
+    b: 93
+  - a: 93
+    b: 99
+  - a: 101
+    b: 96
+  - a: 96
+    b: 83
+  - a: 79
+    b: 80
+  - a: 83
+    b: 79
+  - a: 80
+    b: 81
+  - a: 81
+    b: 84
+  - a: 84
+    b: 85
+  - a: 85
+    b: 58
+  - a: 58
+    b: 60
+  - a: 60
+    b: 63
+  - a: 63
+    b: 65
+  - a: 65
+    b: 66
+  - a: 66
+    b: 67
+  - a: 67
+    b: 71
+  - a: 71
+    b: 72
+  - a: 72
+    b: 73
+  - a: 73
+    b: 74
+  - a: 77
+    b: 78
+  - a: 78
+    b: 92
+  - a: 74
+    b: 77
+  m_SelectedVertices: 650000006600000063000000640000005e0000005f0000005c0000005d0000006100000062000000600000005a000000580000005900000052000000530000004f0000005000000051000000540000005600000057000000550000003a0000003b0000003c0000003d000000400000003f00000041000000420000004400000043000000450000003e0000005b0000004b0000004c000000460000004700000049000000480000004a0000004d0000004e000000
 --- !u!114 &7592233449551876146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11163,7 +11211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 23225da0b6d9e444b9604d2ea1f57f9b, type: 2}
+  - {fileID: 2100000, guid: e3a93228db90c4c7dbd3b23103a258ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11233,7 +11281,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23225da0b6d9e444b9604d2ea1f57f9b, type: 2}
+      objectReference: {fileID: 2100000, guid: e3a93228db90c4c7dbd3b23103a258ca, type: 2}
     - target: {fileID: 1731214026399343875, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
         type: 3}
       propertyPath: m_IsActive
@@ -11248,7 +11296,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23225da0b6d9e444b9604d2ea1f57f9b, type: 2}
+      objectReference: {fileID: 2100000, guid: e3a93228db90c4c7dbd3b23103a258ca, type: 2}
     - target: {fileID: 3358707462872827227, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11343,7 +11391,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23225da0b6d9e444b9604d2ea1f57f9b, type: 2}
+      objectReference: {fileID: 2100000, guid: e3a93228db90c4c7dbd3b23103a258ca, type: 2}
     - target: {fileID: 7214777321291865785, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
         type: 3}
       propertyPath: m_IsActive
@@ -11363,7 +11411,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23225da0b6d9e444b9604d2ea1f57f9b, type: 2}
+      objectReference: {fileID: 2100000, guid: e3a93228db90c4c7dbd3b23103a258ca, type: 2}
     - target: {fileID: 8276142605143651489, guid: 5f319c5c648fdec4ba92d8b91a27a4f8,
         type: 3}
       propertyPath: m_IsActive
