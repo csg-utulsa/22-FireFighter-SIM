@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 29960
+  controlID: 2745
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 29961
+  controlID: 2746
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 29962
+  controlID: 2747
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -226,9 +226,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 1211f0ff509ffcff30b0fdff3c39ffff4839ffff20d0ffff12fbffff92950000
+      m_SelectedIDs: 82830000
+      m_LastClickedID: 33666
+      m_ExpandedIDs: 12fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -335,7 +335,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 24.666666}
+      snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-scene-view-toolbar
@@ -357,7 +357,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 25.333334}
+      snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -489,7 +489,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 0
-      snapOffset: {x: 0, y: 24.666666}
+      snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Particles
@@ -538,9 +538,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 30.30544, y: 2.4648263, z: 64.517235}
+    m_Target: {x: -8.818053, y: -2.3781147, z: 4.885352}
     speed: 2
-    m_Value: {x: -0.0070895553, y: 0.24901736, z: 0.42499647}
+    m_Value: {x: -8.818053, y: -2.3781147, z: 4.885352}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -587,20 +587,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.023555007, y: -0.35845238, z: 0.007893593, w: -0.93373114}
+    m_Target: {x: 0.48032755, y: 0.5213571, z: -0.5002611, w: 0.49837923}
     speed: 2
-    m_Value: {x: -0.024568908, y: -0.96257496, z: 0.25426146, w: -0.090537034}
+    m_Value: {x: 0.47929615, y: 0.52179873, z: -0.500688, w: 0.49730563}
   m_Size:
-    m_Target: 14.664546
+    m_Target: 32.05976
     speed: 2
-    m_Value: 0.09932758
+    m_Value: 32.05976
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 0.28085992
-    m_SpeedNormalized: 0.13999996
+    m_Speed: 0.5207399
+    m_SpeedNormalized: 0.25999996
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -687,22 +687,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\aidan\OneDrive\Documents\GitHub\22-FireFighter-SIM\VR-FireFighter
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 5e890000
-    m_LastClickedID: 35166
-    m_ExpandedIDs: 0000000076870000788700007a87000000ca9a3bffffff7f
+    m_SelectedIDs: 428a0000
+    m_LastClickedID: 35394
+    m_ExpandedIDs: 0000000052880000548800005688000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -730,7 +730,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000076870000788700007a87000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000052880000548800005688000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -755,8 +755,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 82830000
+    m_LastClickedInstanceID: 33666
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000000000003c940000
     m_RenameOverlay:
