@@ -67,7 +67,7 @@ public class LayoutRandomizer : MonoBehaviour
         Vector3 startpos = transform.position - new Vector3(layoutBounds.x / 2, 0, layoutBounds.z / 2);
         for (var r = 0; r < cells.x; r++) {
             for (var c = 0; c < cells.y; c++) {
-                GameObject go = Instantiate( room_main[Mathf.RoundToInt(Random.Range(0,2))], transform );
+                GameObject go = Instantiate( room_main[Mathf.RoundToInt(Random.Range(0,room_main.Length))], transform );
                 go.name = "Room (" + r + ", " + c + ")";
                 go.transform.position = startpos + new Vector3(c * (layoutBounds.x / cells.x), 0, r * (layoutBounds.z / cells.y));
                 go.GetComponent<RoomData>().Setup();

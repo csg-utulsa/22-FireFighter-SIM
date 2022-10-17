@@ -3687,6 +3687,8 @@ MonoBehaviour:
   room_main:
   - {fileID: 8555100310872161170, guid: 460bf6293495662498cae8dbba6cf237, type: 3}
   - {fileID: 8555100310872161170, guid: 460bf6293495662498cae8dbba6cf237, type: 3}
+  - {fileID: 6934257870865279776, guid: cff53836fcaeca44bb48b0a1aa3b2edc, type: 3}
+  - {fileID: 6244098449097104523, guid: a3fd4fddc151d924989bb50e16a637ff, type: 3}
   room_side: []
   room_exit:
   - {fileID: 1689494236270516412, guid: b679b4f29f906774991950117d519eb8, type: 3}
