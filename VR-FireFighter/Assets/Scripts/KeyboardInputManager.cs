@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class KeyboardInputManager : MonoBehaviour
 {
     public Vector2 move;
-    public Vector2 look;
+    public Vector2 looknew;
     public bool jump;
     public bool analogMovement;
 
@@ -14,8 +14,8 @@ public class KeyboardInputManager : MonoBehaviour
         MoveInput(value.Get<Vector2>());
     }
 
-    public void OnLook(InputValue value) {
-        LookInput(value.Get<Vector2>());
+    public void OnLookNew(InputValue value) {
+        LookInputNew(value.Get<Vector2>());
     }
 
     public void OnJump(InputValue value) {
@@ -30,8 +30,8 @@ public class KeyboardInputManager : MonoBehaviour
         move = newMoveDirection;
     }
 
-    public void LookInput(Vector2 newLookDirection) {
-        look = newLookDirection;
+    public void LookInputNew(Vector2 newLookDirection) {
+        looknew = newLookDirection;
     }
 
     public void JumpInput(bool newJumpState) {
