@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Windows;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 using InputDevice = UnityEngine.XR.InputDevice;
 
 public class WalkTest : MonoBehaviour
 {
     public bool UseXRInput = true;
     public float MoveSpeed = 3.0f;
-    public float RotationSpeed = 1.0f;
+    public float RotationSpeed = 0.05f;
     public float SpeedChangeRate = 10.0f;
 
     public float TopClamp = 90.0f;
@@ -39,6 +41,8 @@ public class WalkTest : MonoBehaviour
     public float GroundedRadius = 0.5f;
     public LayerMask GroundLayers;
 
+    public Vector3 currentLook;
+
 
     private void Awake() {
         // get a reference to our main camera
@@ -54,6 +58,10 @@ public class WalkTest : MonoBehaviour
         _input = GetComponent<KeyboardInputManager>();
 
         CheckControllers();
+
+        if (!UseXRInput) {
+            GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<ActionBasedContinuousTurnProvider>().enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -78,19 +86,34 @@ public class WalkTest : MonoBehaviour
 
     private void CameraRotation() {
         // if there is an input
-        if (_input.look.sqrMagnitude >= _threshold) {
+        if (_input.looknew.sqrMagnitude >= _threshold) {
             //Don't multiply mouse input by Time.deltaTime
             float deltaTimeMultiplier = (!UseXRInput) ? 1.0f : Time.deltaTime;
+            Debug.Log("Input: " + _input.looknew);
 
             //_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-            _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+            _rotationVelocity = _input.looknew.x * RotationSpeed * deltaTimeMultiplier;
 
             Vector2 mouseLookAt = Vector2.zero;
-            mouseLookAt.x += 1 * _input.look.x * Time.deltaTime;
-            mouseLookAt.y -= 1 * _input.look.y * Time.deltaTime;
+            //mouseLookAt.x = currentLook.x + (1 * _input.looknew.x * Time.deltaTime);
+            //mouseLookAt.y = currentLook.y + (1 * _input.looknew.y * Time.deltaTime);
+            currentLook.x += (1 * _input.looknew.x * Time.deltaTime) * RotationSpeed;
+            currentLook.y += (1 * _input.looknew.y * Time.deltaTime) * RotationSpeed;
+            //mouseLookAt.x = transform.GetChild(0).eulerAngles.x + (1 * _input.looknew.x * Time.deltaTime);
+            // mouseLookAt.y = transform.GetChild(0).eulerAngles.y + (1 * _input.looknew.y * Time.deltaTime);
+            currentLook = new Vector3(MathExt.Wrap(currentLook.x, 0, 360), MathExt.Wrap(currentLook.y, 0, 360), 0);
+            Debug.Log("input currentLook: " + currentLook+", mouselookat: "+mouseLookAt);
 
-            Camera.main.transform.eulerAngles = new Vector3(mouseLookAt.x, mouseLookAt.y, 0);
-            Debug.Log("Camera rot: " + _input.look);
+            _controller.enabled = false;
+            transform.eulerAngles = new Vector3(0, MathExt.Wrap(currentLook.y, 0, 360), 0);
+            _controller.enabled = true;
+
+            Camera.main.GetComponent<TrackedPoseDriver>().enabled = false;
+            _controller.enabled = false;
+            //Debug.Log("Camera rot old: " + Camera.main.transform.eulerAngles + ", camera rot new: " + new Vector3(mouseLookAt.x, mouseLookAt.y, 0));
+            Camera.main.transform.parent.eulerAngles = currentLook;
+            _controller.enabled = true;
+            Camera.main.GetComponent<TrackedPoseDriver>().enabled = true;
 
             // clamp our pitch rotation
             //_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -99,8 +122,10 @@ public class WalkTest : MonoBehaviour
             //CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
             // rotate the player left and right
-            //_controller.enabled = false;
-            transform.Rotate(Vector3.up * _rotationVelocity);
+            _controller.enabled = false;
+            //transform.GetChild(0).eulerAngles = new Vector3(mouseLookAt.x * RotationSpeed, mouseLookAt.y * RotationSpeed, 0);
+            //transform.Rotate(Vector3.up * _rotationVelocity);
+            _controller.enabled = true;
         }
     }
 
