@@ -170,7 +170,7 @@ public class LayoutRandomizer : MonoBehaviour
         }
 
         // okay, we have our grid, an entrance/exit, and a correct path to the goal. time to start some trickery
-        int maxFakeDoors        = Mathf.RoundToInt(cells.x * cells.y) - halls.Count;
+        int maxFakeDoors        = Mathf.RoundToInt(cells.x * cells.y) - Mathf.RoundToInt(((float)halls.Count)*1.25f);
         int fakeDoors           = 0;
         List<GameObject> fakes  = new List<GameObject>();
         Debug.Log("Adding " + maxFakeDoors + " fake doors! Current hall count: "+halls.Count);
