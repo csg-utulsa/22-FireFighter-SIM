@@ -12,8 +12,8 @@ public class RG_Spawnpoint : MonoBehaviour
     public enum SpawnType
     {
         Player,
-        RescueEnt,
         FireHazard,
+        RescueEnt,
     }
 
     // Start is called before the first frame update

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class RG_Spawns : MonoBehaviour
 {
+    [Header("Set this to be the right prefab first!!!")]
+    public GameObject spawnablePoint;
+    [Space(20)]
     [Header("Spawn Locations")]
     [Tooltip("Places that the player can spawn upon game start. Suggested to use empty game objects w/ RG_Spawnpoint scripts attached for this")]
     public List<RG_Spawnpoint> spawns_player;
@@ -12,14 +15,14 @@ public class RG_Spawns : MonoBehaviour
     public List<RG_Spawnpoint> spawns_hazard;
     [Tooltip("Places that the rescueable entities can spawn upon game start. Suggested to use empty game objects w/ RG_Spawnpoint scripts attached for this")]
     public List<RG_Spawnpoint> spawns_rescue;
-    [Space(5)]
+    [Space(10)]
 
     [Header("Prefabs and Whatnot")]
     [Tooltip("Stores all the possible 'fire hazard' prefabs that can be spawned. Add additional entries for variety if you want")]
     public GameObject[] pfabs_FireHazard;
     [Tooltip("Stores all the possible 'rescue entity' prefabs that can be spawned. Add additional entries for variety if you want")]
     public GameObject[] pfabs_RescueEntity;
-    [Space(5)]
+    [Space(10)]
 
     [Header("Difficulty and Settings")]
     [Tooltip("Number of fire hazards spawned upon game start. Good way to change difficulty level, probably")]
@@ -118,12 +121,15 @@ public class RG_Spawns : MonoBehaviour
             switch (sp.spawnType) {
                 case RG_Spawnpoint.SpawnType.Player:
                     if (!spawns_player.Contains(sp)) spawns_player.Add(sp);
+                    if (GameObject.Find("PlayerSpawns") != null) sp.gameObject.transform.parent = GameObject.Find("PlayerSpawns").transform;
                 break;
                 case RG_Spawnpoint.SpawnType.FireHazard:
                     if (!spawns_hazard.Contains(sp)) spawns_hazard.Add(sp);
+                    if (GameObject.Find("HazardSpawns") != null) sp.gameObject.transform.parent = GameObject.Find("HazardSpawns").transform;
                 break;
                 case RG_Spawnpoint.SpawnType.RescueEnt:
                     if (!spawns_rescue.Contains(sp)) spawns_rescue.Add(sp);
+                    if (GameObject.Find("RescueSpawns") != null) sp.gameObject.transform.parent = GameObject.Find("RescueSpawns").transform;
                 break;
             }
         }
@@ -132,6 +138,17 @@ public class RG_Spawns : MonoBehaviour
         spawns_player.Reverse();
         spawns_hazard.Reverse();
         spawns_rescue.Reverse();
+
+        // check for nulls
+        for (int i = 0; i < spawns_player.Count; i++) {
+            if (spawns_player[i] == null) spawns_player.RemoveAt(i);
+        }
+        for (int i = 0; i < spawns_hazard.Count; i++) {
+            if (spawns_hazard[i] == null) spawns_hazard.RemoveAt(i);
+        }
+        for (int i = 0; i < spawns_rescue.Count; i++) {
+            if (spawns_rescue[i] == null) spawns_rescue.RemoveAt(i);
+        }
 
         // send debug msg back
         Debug.Log("EDITOR: Sorted RG_Spawns spawnpoints.");
@@ -142,5 +159,26 @@ public class RG_Spawns : MonoBehaviour
         spawns_player.Clear();
         spawns_hazard.Clear();
         spawns_rescue.Clear();
+    }
+
+    public void CreateNewSpawn(int spawnType) {
+        GameObject go = Instantiate(spawnablePoint);
+        go.transform.position = transform.position;
+        go.transform.parent = transform;
+        go.GetComponent<RG_Spawnpoint>().spawnType = (RG_Spawnpoint.SpawnType)spawnType;
+
+        switch (spawnType) {
+            case (int)RG_Spawnpoint.SpawnType.Player:
+                go.name = "PlayerSpawn";
+            break;
+            case (int)RG_Spawnpoint.SpawnType.FireHazard:
+                go.name = "HazardSpawn";
+            break;
+            case (int)RG_Spawnpoint.SpawnType.RescueEnt:
+                go.name = "RescueSpawn";
+            break;
+        }
+
+        AutosortSpawnpoints();
     }
 }
