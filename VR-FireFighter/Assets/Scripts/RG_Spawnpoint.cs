@@ -12,32 +12,20 @@ public class RG_Spawnpoint : MonoBehaviour
     public enum SpawnType
     {
         Player,
-        RescueEnt,
         FireHazard,
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        RescueEnt,
     }
 
     private void OnDrawGizmos() {
         switch (spawnType) {
             case SpawnType.Player:
-                Gizmos.color = Color.blue;
+            Gizmos.color = Color.blue;
             break;
             case SpawnType.FireHazard:
-                Gizmos.color = Color.red;
+            Gizmos.color = Color.red;
             break;
             case SpawnType.RescueEnt:
-                Gizmos.color = Color.yellow;
+            Gizmos.color = Color.yellow;
             break;
         }
         Gizmos.DrawWireSphere(transform.position, 0.25f);
