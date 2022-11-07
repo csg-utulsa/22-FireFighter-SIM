@@ -36,20 +36,14 @@ public class RG_Spawns : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        SpawnFires();
-        SpawnRescues();
-        Invoke("SpawnPlayer", 0.1f);
+        //SpawnFires();
+        //SpawnRescues();
+        //Invoke("SpawnPlayer", 0.1f);
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.F5)) {
-            //GameManager.StartGame();
 
-            SpawnFires();
-            SpawnPlayer();
-            SpawnRescues();
-        }
     }
 
     // spawn player

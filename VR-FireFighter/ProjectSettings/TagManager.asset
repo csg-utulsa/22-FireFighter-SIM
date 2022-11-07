@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomEntrance
   - RoomExit
+  - SpawnManager
   layers:
   - Default
   - TransparentFX

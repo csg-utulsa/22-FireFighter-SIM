@@ -21,6 +21,10 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateUI() {
-        timeText.text = string.Format("{0}:{1}", GameManager.timeRemaining_mins, Mathf.Floor(GameManager.timeRemaining_seconds));
+        timeText.text = string.Format("{0}:{1}", GameManager.timeRemaining_mins, Stringext.NumberPad( Mathf.FloorToInt(GameManager.timeRemaining_seconds), 2)  );
+    }
+
+    public void ShowGameOverUI() {
+
     }
 }
