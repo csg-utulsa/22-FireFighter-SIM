@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +17,11 @@ public class GameManager : MonoBehaviour
     UIManager uiManager;
     static UI_Typewritter uiObjective;
     static UI_Typewritter uiGameOver;
+    static UI_Typewritter uiWin;
+    static UI_Typewritter uiTryAgain;
     static RG_Spawns mgSpawns;
+
+    public static bool timerActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +29,8 @@ public class GameManager : MonoBehaviour
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         uiObjective = GameObject.Find("ObjectiveText").GetComponent<UI_Typewritter>();
         uiGameOver = GameObject.Find("TimeUpText").GetComponent<UI_Typewritter>();
+        uiWin = GameObject.Find("VictoryText").GetComponent<UI_Typewritter>();
+        uiTryAgain = GameObject.Find("TryAgainText").GetComponent<UI_Typewritter>();
         
         mgSpawns = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<RG_Spawns>();
 
@@ -35,6 +42,29 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // take user input for things
+        GetInputs();
+
+        // exit if time up
+        if (!timerActive) return;
+
+        // check for gameover
+        if ((timeRemaining_mins <= 0 && timeRemaining_seconds <= 0) || timeRemaining_mins < 0) {
+            // enable gameover
+            uiGameOver.gameObject.SetActive(true);
+            uiGameOver.StartTypewrite();
+            timerActive = false;
+            // set time until invoke
+            Invoke("TryAgainPopup", 2f);
+            // set properties
+            timeRemaining_mins = 0;
+            timeRemaining_seconds = 0;
+            // update the ui
+            uiManager.UpdateUI();
+            // quit counting
+            return;
+        }
+
         // do timer stuff
         timeRemaining_seconds -= Time.deltaTime;
         if (timeRemaining_seconds < 0) {
@@ -45,15 +75,6 @@ public class GameManager : MonoBehaviour
         }
         // update the ui
         uiManager.UpdateUI();
-
-        // check for gameover
-        if (timeRemaining_mins <= 0 && timeRemaining_seconds <= 0) {
-            uiGameOver.gameObject.SetActive(true);
-            uiGameOver.StartTypewrite();
-        }
-
-        // take user input for things
-        GetInputs();
     }
 
     // for user stuff
@@ -74,6 +95,12 @@ public class GameManager : MonoBehaviour
         timeRemaining_seconds = (gameProps_rescueTime_static - (Mathf.Floor(gameProps_rescueTime_static) - 1)) * 60;
         Debug.Log("static: " + gameProps_rescueTime_static);
         Debug.Log("time is: " + timeRemaining_mins + ":" + timeRemaining_seconds);
+        timerActive = true;
+
+        // reset rescues
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("RescueEntity") ) {
+            Destroy(go);
+        }
 
         mgSpawns.SpawnPlayer();
         mgSpawns.SpawnFires();
@@ -83,5 +110,20 @@ public class GameManager : MonoBehaviour
         uiObjective.gameObject.SetActive(true);
         uiObjective.StartTypewrite();
         uiGameOver.gameObject.SetActive(false);
+        uiWin.gameObject.SetActive(false);
+        uiTryAgain.gameObject.SetActive(false);
+    }
+
+    public static void WinGame() {
+        // set ui stuff
+        uiWin.gameObject.SetActive(true);
+        uiWin.StartTypewrite();
+        // disable timer
+        timerActive = false;
+    }
+
+    public void TryAgainPopup() {
+        uiTryAgain.gameObject.SetActive(true);
+        uiTryAgain.StartTypewrite();
     }
 }

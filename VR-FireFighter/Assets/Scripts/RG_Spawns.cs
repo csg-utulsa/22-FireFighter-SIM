@@ -128,7 +128,7 @@ public class RG_Spawns : MonoBehaviour
 
         // send feedback abt how things went
         if (count < rescues) Debug.Log(string.Format("RG_Spawns: !! Not enough spawnpoints to spawn all {0} rescues requested. Spawned {1} rescues instead. !!", rescues, count));
-        else Debug.Log(string.Format("RG_Spawns: Spawned {0} rescueEntities.", count));
+        else Debug.Log(string.Format("RG_Spawns: Spawned {0} rescueEntities.", GameObject.FindGameObjectsWithTag("RescueEntity").Length));
     }
 
     private void OnDrawGizmosSelected() {
