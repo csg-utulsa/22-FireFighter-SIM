@@ -7,6 +7,7 @@ using UnityEditor;
 public class UEditor_RG_Spawns : Editor
 {
     private RG_Spawns script;
+    int spawnType = 0;
 
     private void OnEnable() {
         // Method 1
@@ -17,6 +18,14 @@ public class UEditor_RG_Spawns : Editor
         // Draw default inspector
         base.OnInspectorGUI();
 
+        // For creating a new spawn
+        GUILayout.Space(25);
+        string[] str = { "Player", "FireHazard", "RescueEnt" };
+        spawnType = GUILayout.Toolbar(spawnType, str);
+        if (GUILayout.Button("Create New Spawnpoint")) {
+            script.CreateNewSpawn(spawnType);
+        }
+        GUILayout.Space(10);
         // For placing newly created spawns into the list
         if (GUILayout.Button("Autosort Spawnpoints")) {
             script.AutosortSpawnpoints();
