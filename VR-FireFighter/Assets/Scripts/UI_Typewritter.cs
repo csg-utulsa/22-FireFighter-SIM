@@ -29,6 +29,7 @@ public class UI_Typewritter : MonoBehaviour
 
     [HideInInspector]
     public TextMeshProUGUI textobj;
+    public UI_Pulse pulse;
 
 
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public class UI_Typewritter : MonoBehaviour
     {
         // grab references
         textobj = GetComponent<TextMeshProUGUI>();
+        pulse = GetComponent<UI_Pulse>();
 
         // start typewriting
         StartTypewrite();
@@ -71,6 +73,11 @@ public class UI_Typewritter : MonoBehaviour
         // fill the vars necessary
         txt = textobj.text;
         txtprog = "";
+
+        // reset pulse
+        if (pulse != null) {
+            pulse.ResetColor();
+        }
 
         // clear the original string just so we don't see weird after images
         //textobj.text = "";
