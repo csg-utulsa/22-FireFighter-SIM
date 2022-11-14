@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static float timeRemaining_mins = 0;
     public static float timeRemaining_seconds = 0;
 
-    static UIManager uiManager;
+    UIManager uiManager;
     static UI_Typewritter uiObjective;
     static UI_Typewritter uiGameOver;
     static UI_Typewritter uiWin;
@@ -50,8 +50,17 @@ public class GameManager : MonoBehaviour
 
         // check for gameover
         if ((timeRemaining_mins <= 0 && timeRemaining_seconds <= 0) || timeRemaining_mins < 0) {
-            // call gameover method
-            GameOver();
+            // enable gameover
+            uiGameOver.gameObject.SetActive(true);
+            uiGameOver.StartTypewrite();
+            timerActive = false;
+            // set time until invoke
+            Invoke("TryAgainPopup", 2f);
+            // set properties
+            timeRemaining_mins = 0;
+            timeRemaining_seconds = 0;
+            // update the ui
+            uiManager.UpdateUI();
             // quit counting
             return;
         }
@@ -103,44 +112,14 @@ public class GameManager : MonoBehaviour
         uiGameOver.gameObject.SetActive(false);
         uiWin.gameObject.SetActive(false);
         uiTryAgain.gameObject.SetActive(false);
-
-        // reset special effects
-        uiManager.timeText.GetComponent<UI_Pulse>().ResetColor();
-        uiManager.timeText.GetComponent<UI_Pulse>().enabled = false;
     }
 
     public static void WinGame() {
         // set ui stuff
         uiWin.gameObject.SetActive(true);
         uiWin.StartTypewrite();
-
         // disable timer
         timerActive = false;
-
-        // reset special effects
-        uiManager.timeText.GetComponent<UI_Pulse>().ResetColor();
-        uiManager.timeText.GetComponent<UI_Pulse>().enabled = false;
-    }
-
-    public void GameOver() {
-        // enable gameover
-        uiGameOver.gameObject.SetActive(true);
-        uiGameOver.StartTypewrite();
-        timerActive = false;
-
-        // set time until invoke
-        Invoke("TryAgainPopup", 2f);
-
-        // set properties
-        timeRemaining_mins = 0;
-        timeRemaining_seconds = 0;
-
-        // update the ui
-        uiManager.UpdateUI();
-
-        // reset special effects
-        uiManager.timeText.GetComponent<UI_Pulse>().ResetColor();
-        uiManager.timeText.GetComponent<UI_Pulse>().enabled = false;
     }
 
     public void TryAgainPopup() {
