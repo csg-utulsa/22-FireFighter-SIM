@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     static UI_Typewritter uiTryAgain;
     static RG_Spawns mgSpawns;
 
-    public static bool timerActive = false;
+    public static bool timerActive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,11 +42,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Update");
+
         // take user input for things
         GetInputs();
 
         // exit if time up
-        if (!timerActive) return;
+        if (!timerActive)
+        {
+            Debug.Log("don't count rn");
+            return;
+        }
 
         // check for gameover
         if ((timeRemaining_mins <= 0 && timeRemaining_seconds <= 0) || timeRemaining_mins < 0) {
@@ -58,6 +64,7 @@ public class GameManager : MonoBehaviour
 
         // do timer stuff
         timeRemaining_seconds -= Time.deltaTime;
+        Debug.Log("time remaining secs: " + timeRemaining_seconds);
         if (timeRemaining_seconds < 0) {
             timeRemaining_mins--;
             timeRemaining_seconds = 60;
@@ -66,6 +73,10 @@ public class GameManager : MonoBehaviour
         }
         // update the ui
         uiManager.UpdateUI();
+
+        Debug.Log("Update End");
+
+
     }
 
     // for user stuff
@@ -127,6 +138,8 @@ public class GameManager : MonoBehaviour
         uiGameOver.gameObject.SetActive(true);
         uiGameOver.StartTypewrite();
         timerActive = false;
+
+        Debug.Log("Gameover!");
 
         // set time until invoke
         Invoke("TryAgainPopup", 2f);
