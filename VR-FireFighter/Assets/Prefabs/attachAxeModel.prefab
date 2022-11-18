@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2584854978416061817}
   - component: {fileID: 2584854978416061822}
   - component: {fileID: 2584854978416061816}
+  - component: {fileID: 5094865285163004497}
   m_Layer: 6
   m_Name: attachAxeModel
   m_TagString: Untagged
@@ -112,7 +113,7 @@ MeshCollider:
   m_GameObject: {fileID: 1693103147632383912}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -238,6 +239,19 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!65 &5094865285163004497
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693103147632383912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0030952748, y: 0.0088147735, z: 0.043224208}
+  m_Center: {x: 0.0000000017637115, y: 0.0007090261, z: -0.0008643687}
 --- !u!1 &4157206246556621864
 GameObject:
   m_ObjectHideFlags: 0
