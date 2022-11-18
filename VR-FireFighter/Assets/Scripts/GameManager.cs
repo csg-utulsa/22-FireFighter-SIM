@@ -152,8 +152,8 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateUI();
 
         // reset special effects
-        uiManager.timeText.GetComponent<UI_Pulse>().ResetColor();
-        uiManager.timeText.GetComponent<UI_Pulse>().enabled = false;
+      //  uiManager.timeText.GetComponent<UI_Pulse>().ResetColor();
+      //  uiManager.timeText.GetComponent<UI_Pulse>().enabled = false;
     }
 
     public void TryAgainPopup() {
