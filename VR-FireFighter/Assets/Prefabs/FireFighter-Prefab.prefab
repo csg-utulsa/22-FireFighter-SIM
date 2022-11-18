@@ -304,6 +304,8 @@ GameObject:
   - component: {fileID: 6335701692019946924}
   - component: {fileID: 8868381506718777784}
   - component: {fileID: 8058100869498362916}
+  - component: {fileID: -5999288204076064765}
+  - component: {fileID: -170893566376183729}
   m_Layer: 0
   m_Name: FireFighter-Prefab
   m_TagString: Untagged
@@ -377,11 +379,36 @@ MeshCollider:
   m_GameObject: {fileID: 740581996500956524}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &-5999288204076064765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740581996500956524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c703920faa69bb45bd459f2f0f0a485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-170893566376183729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740581996500956524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.9195358, z: 1}
+  m_Center: {x: 0, y: 0.93213624, z: 0}
 --- !u!1 &936471024359685588
 GameObject:
   m_ObjectHideFlags: 0
