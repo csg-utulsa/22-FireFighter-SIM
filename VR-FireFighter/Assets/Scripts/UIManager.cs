@@ -34,11 +34,11 @@ public class UIManager : MonoBehaviour
         // check for important stuff
         if (GameManager.timeRemaining_mins <= 0) {
             // start pulsing the time text
-            UI_Pulse pulse = timeText.GetComponent<UI_Pulse>();
+            /*UI_Pulse pulse = timeText.GetComponent<UI_Pulse>();
             pulse.enabled = true;
             if (GameManager.timeRemaining_seconds <= 30) {
                 pulse.timeBetweenColors = Mathf.Clamp( (2f - (0.2f / (GameManager.timeRemaining_seconds/30f))), 0.2f, 2f);
-            }
+            }*/
         }
 
         // check for victory conditions
